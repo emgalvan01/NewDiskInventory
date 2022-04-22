@@ -4,6 +4,8 @@
 }
 <h1>@ViewBag.Title</h1>
 
+<a asp-controller="Borrower" asp-action="Add" class="text-black-50">Add New Borrower</a>
+
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -21,6 +23,10 @@
                     <td>@borrower.Lname</td>
                     <td>@borrower.Fname</td>
                     <td>@borrower.PhoneNumber</td>
+                    <td>
+                        <a asp-controller="Borrower" asp-action="Edit" asp-route-id="@borrower.BorrowerId">Edit</a>
+                        <a asp-controller="Borrower" asp-action="Delete" asp-route-id="@borrower.BorrowerId">Delete</a>
+                    </td>
                 </tr>
             }
     </tbody>

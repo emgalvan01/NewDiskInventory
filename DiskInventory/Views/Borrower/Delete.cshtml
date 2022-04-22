@@ -1,0 +1,13 @@
+﻿@model Borrower
+@{
+    ViewBag.Title = "Delete Borrower";
+}
+
+<h2>Confrim Delete</h2>
+<h3>@Model.Fname @Model.Lname</h3>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="BorrowerId" />
+    <button type="submit" class="btn btn-primary">Delete</button>
+    <a asp-controller="Borrower" asp-action="Index" class="btn btn-primary">Cancel</a>
+</form>
