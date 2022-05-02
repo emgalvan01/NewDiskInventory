@@ -6,6 +6,10 @@
 <h2>@ViewBag.Title</h2>
 
 <a asp-controller="DiskHasBorrower" asp-action="Add">Add Checkout</a>
+@if (TempData.Keys.Contains("message"))
+ {
+    <h4 class="bg-info text-center text-white p-2">@TempData["message"]</h4>
+ }
 
 <table class="table table-bordered table-striped">
     <thead>
@@ -24,7 +28,7 @@
                 <td>@diskhasborrower.Disk.DiskName</td>
                 <td>@diskhasborrower.Borrower.Lname</td>
                 <td>@diskhasborrower.Borrower.Fname</td>
-                <td>@diskhasborrower.BorrowedDate.ToString("dd MMM yyyy")</td>
+                <td>@diskhasborrower.BorrowedDate?.ToString("dd MMM yyyy")</td>
                 <td>@diskhasborrower.ReturnedDate?.ToString("dd MMM yyyy")</td>
                 <td>
                     <a asp-controller="DiskHasBorrower" asp-action="Edit" asp-route-id="@diskhasborrower.DiskHasBorrowerId">Edit</a>
