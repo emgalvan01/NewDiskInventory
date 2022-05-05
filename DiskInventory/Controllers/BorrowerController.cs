@@ -76,8 +76,7 @@ namespace DiskInventory.Controllers
         public IActionResult Delete(Borrower borrower)
         {
             //context.Borrowers.Remove(borrower);
-            context.Database.ExecuteSqlRaw("execute sp_del_borrower @p0",
-                       parameters: new[] { borrower.BorrowerId.ToString() });
+            context.Database.ExecuteSqlRaw("execute sp_del_borrower @p0", parameters: new[] { borrower.BorrowerId.ToString() });
             TempData["message"] = "Borrower Removed.";
             //context.SaveChanges();
             return RedirectToAction("Index", "Borrower");
