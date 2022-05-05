@@ -47,10 +47,20 @@ namespace DiskInventory.Controllers
             if (ModelState.IsValid)
             {
                 if (disk.DiskId == 0)
-                    context.Disks.Add(disk);
+                {
+                    //context.Disks.Add(disk);
+                    context.Database.ExecuteSqlRaw("execute sp_ins_disk @p0, @p1, @p2, @p3, @p4",
+                        parameters: new[] { disk.DiskName.ToString(), disk.ReleaseDate.ToString(), disk.StatusId.ToString(), disk.DiskTypeId.ToString(), disk.GenreId.ToString() });
+                    TempData["message"] = "Disk added.";
+                }
                 else
-                    context.Disks.Update(disk);
-                context.SaveChanges();
+                {
+                    //context.Disks.Update(disk);
+                    // context.SaveChanges();
+                    context.Database.ExecuteSqlRaw("execute sp_upd_disk @p0, @p1, @p2, @p3, @p4, @p5",
+                         parameters: new[] { disk.DiskId.ToString(), disk.DiskName.ToString(), disk.ReleaseDate.ToString(), disk.StatusId.ToString(), disk.DiskTypeId.ToString(), disk.GenreId.ToString() });
+                    TempData["message"] = "Disk updated.";
+                }
                 return RedirectToAction("Index", "Disk");
             }
             else
@@ -73,8 +83,10 @@ namespace DiskInventory.Controllers
         [HttpPost]
         public IActionResult Delete(Disk disk)
         {
-            context.Disks.Remove(disk);
-            context.SaveChanges();
+            //context.Disks.Remove(disk);
+            //context.SaveChanges();
+            context.Database.ExecuteSqlRaw("execute sp_del_disk @p0", parameters: new[] { disk.DiskId.ToString() });
+            TempData["message"] = "Disk Removed.";
             return RedirectToAction("Index", "Disk");
         }
     }
